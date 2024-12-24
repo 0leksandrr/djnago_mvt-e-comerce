@@ -30,7 +30,13 @@ API_BOT = config('API_BOT')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '91.210.165.20', 'atikin.if.ua', 'www.atikin.if.ua']
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://atikin.if.ua',
+    'https://www.atikin.if.ua',
+]
+
 
 # Application definition
 
