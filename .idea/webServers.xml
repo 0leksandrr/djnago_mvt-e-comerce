@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="47d204d4-8e97-4731-aad2-101a42366321" name="mensline">
+        <fileTransfer rootFolder="/home/djnago_mvt-e-comerce" accessType="SFTP" host="91.210.165.20" port="3333" sshConfigId="159ed9f6-37fd-41c5-b0ca-de93b740f5af" sshConfig="root@91.210.165.20:3333 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" isUseRsync="true" isUseSudo="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
