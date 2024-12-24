@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" style="margin-top: 50px;">
+    <center><i class="fas fa-check-circle" style="font-size: 72px; margin-bottom: 20px; color: #28A745;"></i></center>
+    <h2 class="text-center">Дякуємо за ваше замовлення!</h2>
+    <p class="text-center" style="font-size: 18px;">Ваше замовлення було успішно оформлене. Ми зв'яжемося з вами для підтвердження.</p>
+    <br>
+    <div class="text-center">
+        <a href="{% url 'store' %}" class="btn btn-success">Повернутися до магазину</a>
+    </div>
+</div>
+{% endblock %}

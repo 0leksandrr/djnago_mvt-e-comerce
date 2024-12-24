@@ -1,0 +1,201 @@
+.custom-outline-button {
+    background-color: #982222;
+    border-color: #982222;
+    color: #fff; /* Текст білий */
+    outline: none; /* Прибираємо синю рамку */
+    box-shadow: none; /* Прибираємо тінь фокусу */
+}
+
+.custom-outline-button:hover {
+    background-color: #7a1b1b; /* Трохи темніший колір при наведенні */
+    border-color: #7a1b1b;
+}
+
+.custom-outline-button:focus,
+.custom-outline-button:active {
+    background-color: #7a1b1b; /* Трохи темніший колір */
+    border-color: #7a1b1b;
+    outline: none; /* Забираємо синій контур */
+    box-shadow: none; /* Забираємо тінь, яку створює фокус */
+}
+
+/* Стиль для всіх елементів пагінації */
+.pagination .page-link {
+    color: #982222; /* Колір тексту */
+    border-color: #982222; /* Колір бордера */
+}
+
+/* Стиль для активного елементу пагінації */
+.pagination .page-item.active .page-link {
+    background-color: #982222; /* Колір фону */
+    border-color: #982222; /* Колір бордера */
+    color: #fff; /* Колір тексту в активному елементі */
+}
+
+/* Стиль для ховер-ефекту на елементах пагінації */
+.pagination .page-link:hover {
+    background-color: #7a1b1b; /* Трохи темніший колір при наведенні */
+    border-color: #7a1b1b;
+    color: #fff; /* Колір тексту при наведенні */
+}
+
+/* Стиль для заблокованих елементів пагінації (disabled) */
+.pagination .page-item.disabled .page-link {
+    color: #ccc; /* Світлий колір для заблокованих елементів */
+    border-color: #ccc;
+    background-color: transparent;
+}
+
+
+
+.custom-btn-primary {
+    background-color: #982222; /* Колір фону */
+    border-color: #982222; /* Колір рамки */
+    color: #fff; /* Колір тексту або іконки */
+}
+
+.custom-btn-primary:hover {
+    background-color: #7a1b1b; /* Трохи темніший колір при наведенні */
+    border-color: #7a1b1b;
+}
+
+
+.title {
+    display: -webkit-box; /* Встановлює контейнер як блок з підтримкою багаторядковості */
+    -webkit-line-clamp: 2; /* Обмежує кількість рядків */
+    -webkit-box-orient: vertical; /* Орієнтація в вертикальному напрямку */
+    overflow: hidden; /* Приховує текст, що виходить за межі */
+    text-overflow: ellipsis; /* Додає "..." для тексту, що не вміщується */
+}
+
+/* Custom Container */
+.custom-container {
+  width: 100%;
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* For screens 576px and above */
+@media (min-width: 576px) {
+  .custom-container {
+    max-width: 540px;
+  }
+}
+
+/* For screens 768px and above */
+@media (min-width: 768px) {
+  .custom-container {
+    max-width: 720px;
+  }
+}
+
+/* For screens 992px and above */
+@media (min-width: 992px) {
+  .custom-container {
+    max-width: 960px;
+  }
+}
+
+/* For screens 1200px and above */
+@media (min-width: 1200px) {
+  .custom-container {
+    max-width: 1200px;
+  }
+}
+
+.custom-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: auto; /* Автоматична висота */
+}
+
+.custom-img-wrap {
+    text-align: center;
+}
+
+.custom-img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.custom-info-wrap {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    flex-grow: 1;
+    min-height: 120px; /* Мінімальна висота */
+}
+
+.custom-title {
+    font-size: 16px;
+    color: #333;
+    word-wrap: break-word;
+    text-align: center;
+    margin-bottom: 15px;
+    white-space: normal; /* Дозволяє тексту переноситись */
+}
+
+.custom-price-wrap {
+    text-align: start;
+}
+
+.custom-price {
+    font-size: 18px;
+    color: #982222;
+    font-weight: bold;
+}
+
+/* Контейнер іконки */
+.custom-icon-container {
+    display: flex;
+    align-items: center;
+    padding: 7px 13px; /* Внутрішній відступ */
+    border-radius: 5px; /* Згладження кутів */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Легке тінювання */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Анімація при наведенні */
+    cursor: pointer; /* Вказівник змінюється при наведенні */
+}
+
+/* Іконка */
+.custom-icon {
+    font-size: 24px; /* Розмір іконки */
+    color: #fff; /* Білий колір іконки */
+}
+
+/* Текст "Кошик" */
+.cart-text {
+    font-size: 18px; /* Розмір тексту */
+    color: #282424; /* Білий колір тексту */
+    font-weight: bold; /* Жирний шрифт */
+}
+
+/* Ефект при наведенні */
+.custom-icon-container:hover {
+    transform: scale(1.05); /* Легке збільшення при наведенні */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Глибше тінювання */
+}
+
+/* Адаптивний дизайн */
+@media (max-width: 768px) {
+    .custom-icon-container {
+        padding: 8px 12px; /* Менший відступ для мобільних пристроїв */
+    }
+    .custom-icon {
+        font-size: 20px; /* Менший розмір іконки */
+    }
+    .cart-text {
+        font-size: 16px; /* Менший розмір тексту */
+    }
+}
+
+

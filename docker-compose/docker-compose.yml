@@ -1,0 +1,32 @@
+version: "3.6"
+
+services:
+  django:
+    container_name: django
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - ..:/backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    env_file:
+      - ../.env_production
+    command: ["sh", "-c", "python manage.py migrate && gunicorn -b 0.0.0.0:8000 --workers 3 --access-logfile - mensline.wsgi:application"]
+
+  postgres:
+    image: postgres:13-alpine
+    container_name: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - some_data:/var/lib/postgresql/data
+    env_file:
+      - ../.env_production
+
+volumes:
+  some_data:
