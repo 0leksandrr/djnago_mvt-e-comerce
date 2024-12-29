@@ -7,7 +7,7 @@ from category.models import Category
 
 class Product(models.Model):
     objects = models.Manager()
-    product_name = models.CharField(max_length=500, unique=True, verbose_name='Назва товару')
+    product_name = models.CharField(max_length=500, verbose_name='Назва товару')
     slug = models.SlugField(max_length=500, unique=True)
     description = models.TextField(blank=True, verbose_name='Опис')
     price = models.IntegerField(verbose_name='Ціна')
