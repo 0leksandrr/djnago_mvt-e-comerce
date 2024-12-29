@@ -23,109 +23,67 @@ def add_cart(request, product_id):
     if user is authenticated and not.
     :param request:
     :param product_id: id of the product we want to add to the cart
-    :return: redirect user to 'cart' page
+    :return: redirect user to 'cart' page or stay on the current page
     """
-    current_user = request.user
     product = Product.objects.get(id=product_id)  # get the product
-    # If the user is authenticated
-    if current_user.is_authenticated:
-        product_variation = []
-        if request.method == 'POST':
-            for item in request.POST:
-                key = item
-                value = request.POST[key]
 
-                try:
-                    variation = Variation.objects.get(product=product, variation_category__iexact=key,
-                                                      variation_value__iexact=value)
-                    product_variation.append(variation)
-                except:
-                    pass
+    product_variation = []
+    if request.method == 'POST':
+        for item in request.POST:
+            key = item
+            value = request.POST[key]
 
-        is_cart_item_exists = CartItem.objects.filter(product=product, user=current_user).exists()
-        if is_cart_item_exists:
-            cart_item = CartItem.objects.filter(product=product, user=current_user)
-            existing_variation_list = [list(item.variations.all()) for item in cart_item]
-            item_id_list = [item.id for item in cart_item]
+            try:
+                variation = Variation.objects.get(product=product, variation_category__iexact=key,
+                                                  variation_value__iexact=value)
+                product_variation.append(variation)
+            except:
+                pass
 
-            if product_variation in existing_variation_list:
-                # increase the cart item quantity
-                item_index = existing_variation_list.index(product_variation)
-                item = CartItem.objects.get(product=product, id=item_id_list[item_index])
-                item.quantity += 1
-                item.save()
-            else:
-                # create a new cart item
-                item = CartItem.objects.create(product=product, quantity=1, user=current_user)
-                if len(product_variation) > 0:
-                    item.variations.clear()
-                    item.variations.add(*product_variation)
-                item.save()
+    try:
+        cart = Cart.objects.get(cart_id=_cart_id(request))  # get the cart using the cart_id present in the session
+    except ObjectDoesNotExist:
+        cart = Cart.objects.create(
+            cart_id=_cart_id(request)
+        )
+        cart.save()
+
+    is_cart_item_exists = CartItem.objects.filter(product=product, cart=cart).exists()
+    if is_cart_item_exists:
+        cart_item = CartItem.objects.filter(product=product, cart=cart)
+        existing_variation_list = [list(item.variations.all()) for item in cart_item]
+        item_id_list = [item.id for item in cart_item]
+
+        if product_variation in existing_variation_list:
+            # increase the cart item quantity
+            item_index = existing_variation_list.index(product_variation)
+            item = CartItem.objects.get(product=product, id=item_id_list[item_index])
+            item.quantity += 1
+            item.save()
         else:
-            cart_item = CartItem.objects.create(
-                product=product,
-                quantity=1,
-                user=current_user
-            )
+            # create a new cart item
+            item = CartItem.objects.create(product=product, quantity=1, cart=cart)
             if len(product_variation) > 0:
-                cart_item.variations.clear()
-                cart_item.variations.add(*product_variation)
-            cart_item.save()
-        return redirect('cart')
-
-    # If the user is not authenticated
+                item.variations.clear()
+                item.variations.add(*product_variation)
+            item.save()
     else:
-        product_variation = []
-        if request.method == 'POST':
-            for item in request.POST:
-                key = item
-                value = request.POST[key]
+        cart_item = CartItem.objects.create(
+            product=product,
+            quantity=1,
+            cart=cart
+        )
+        if len(product_variation) > 0:
+            cart_item.variations.clear()
+            cart_item.variations.add(*product_variation)
+        cart_item.save()
 
-                try:
-                    variation = Variation.objects.get(product=product, variation_category__iexact=key,
-                                                      variation_value__iexact=value)
-                    product_variation.append(variation)
-                except:
-                    pass
+    # Перевіряємо, яку кнопку було натиснуто
+    if 'buy_now' in request.POST:
+        return redirect('cart')  # Перенаправляємо на сторінку корзини
+    else:
+        return redirect(request.META.get('HTTP_REFERER', 'store:index'))  # Залишаємо на тій самій сторінці
 
-        try:
-            cart = Cart.objects.get(cart_id=_cart_id(request))  # get the cart using the cart_id present in the session
-        except ObjectDoesNotExist:
-            cart = Cart.objects.create(
-                cart_id=_cart_id(request)
-            )
-            cart.save()
-
-        is_cart_item_exists = CartItem.objects.filter(product=product, cart=cart).exists()
-        if is_cart_item_exists:
-            cart_item = CartItem.objects.filter(product=product, cart=cart)
-            existing_variation_list = [list(item.variations.all()) for item in cart_item]
-            item_id_list = [item.id for item in cart_item]
-
-            if product_variation in existing_variation_list:
-                # increase the cart item quantity
-                item_index = existing_variation_list.index(product_variation)
-                item = CartItem.objects.get(product=product, id=item_id_list[item_index])
-                item.quantity += 1
-                item.save()
-            else:
-                # create a new cart item
-                item = CartItem.objects.create(product=product, quantity=1, cart=cart)
-                if len(product_variation) > 0:
-                    item.variations.clear()
-                    item.variations.add(*product_variation)
-                item.save()
-        else:
-            cart_item = CartItem.objects.create(
-                product=product,
-                quantity=1,
-                cart=cart
-            )
-            if len(product_variation) > 0:
-                cart_item.variations.clear()
-                cart_item.variations.add(*product_variation)
-            cart_item.save()
-        return redirect('cart')
 
 
 def remove_cart(request, product_id, cart_item_id):

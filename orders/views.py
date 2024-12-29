@@ -81,5 +81,7 @@ def send_order_to_telegram(request):
             # Send the request to the Telegram API
             response = requests.get(url, params=params)
 
+        cart_items.delete()
+
         # Redirect to order completion page
         return render(request, 'orders/order_complete.html')

@@ -51,6 +51,12 @@
 
 	<p>{{ single_product.description }}</p>
 
+	<div class="product-details mt-3">
+		<p class="mb-1"><strong>Модель:</strong> {{ single_product.model }}</p>
+		<p class="mb-1"><strong>Вид тканини:</strong> {{ single_product.fabric_type }}</p>
+		<p class="mb-1"><strong>Склад тканини:</strong> {{ single_product.fabric_composition }}</p>
+		<p class="mb-1"><strong>Колір:</strong> {{ single_product.color }}</p>
+	</div>
 
 	<hr>
 		<div class="row">
@@ -68,7 +74,17 @@
 		{% if single_product.stock <= 0 %}
 		<h5 class="text-danger">Немає в наявності</h5>
 		{% else %}
-		<button type="submit" class="btn btn-primary custom-outline-button"> <span class="text">Купити</span> <i class="fas fa-shopping-cart"></i>  </button>
+		<div class="d-flex">
+			<button type="submit" name="buy_now" class="btn btn-primary custom-outline-button mr-2">
+				<span class="text">Купити</span>
+				<i class="fas fa-shopping-cart"></i>
+			</button>
+			<button type="submit" name="add_to_cart" class="btn btn-secondary custom-outline-button">
+				<span class="text">В корзину</span>
+				<i class="fas fa-plus"></i>
+			</button>
+		</div>
+
 		{% endif %}
 
 	</article>

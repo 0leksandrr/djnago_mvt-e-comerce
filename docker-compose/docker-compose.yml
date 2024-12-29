@@ -16,7 +16,7 @@ services:
     env_file:
       - ../.env_production
     command: ["sh", "-c", "python manage.py migrate && gunicorn -b 0.0.0.0:8000 --workers 3 --access-logfile - mensline.wsgi:application"]
-
+#python manage.py runserver 0.0.0.0:8000
   postgres:
     image: postgres:13-alpine
     container_name: postgres

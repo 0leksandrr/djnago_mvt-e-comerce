@@ -24,15 +24,38 @@
                             <div class="card-body">
 
                                 <ul class="list-menu">
-                                    <li><a href="{% url 'store' %}">Усі товари<span
-                                            class="badge badge-pill badge-light float-right">{{all_products_count}}</span></a>
-                                    </li>
                                     {% for category in links %}
-                                    <li><a href="{{ category.get_url }}">{{category.category_name}}
-                                        <span class="badge badge-pill badge-light float-right">{{count_products_by_category|get_index:forloop.counter0}}</span>
-                                    </a></li>
+                                    <li>
+                                        <a href="{{ category.get_url }}">
+                                            {{ category.category_name }}
+                                            <span class="badge badge-pill badge-light float-right">
+                                                {{ count_products_by_category|get_index:forloop.counter0 }}
+                                            </span>
+                                        </a>
+                                        {% if category.subcategories.exists %}
+                                        <ul>
+                                            {% for subcategory in category.subcategories.all %}
+                                            <li>
+                                                <a href="{{ subcategory.get_url }}">{{ subcategory.category_name }}</a>
+                                                {% if subcategory.subcategories.exists %}
+                                                <ul>
+                                                    {% for sub_subcategory in subcategory.subcategories.all %}
+                                                    <li>
+                                                        <a href="{{ sub_subcategory.get_url }}">{{ sub_subcategory.category_name }}</a>
+                                                    </li>
+                                                    {% endfor %}
+                                                </ul>
+                                                {% endif %}
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                        {% endif %}
+                                    </li>
                                     {% endfor %}
                                 </ul>
+
+
+
 
                             </div>
                         </div>
