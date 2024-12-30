@@ -65,11 +65,37 @@
 				<select name="size" class="form-control" required>
 					<option value="" disabled selected>вибір</option>
 					{% for i in single_product.variation_set.sizes %}
-					<option value="{{ i.variation_value | lower}}">{{ i.variation_value | capfirst }}</option>
+						<option value="{{ i.variation_value | lower }}">{{ i.variation_value | capfirst }}</option>
 					{% endfor %}
 				</select>
 			</div>
+
+			<!-- Button to trigger modal with size chart image -->
+			<div style="margin-top: 25px; margin-left: 5px;">
+				<a href="#"
+				   class="btn btn-link text-dark text-decoration-none px-0"
+				   data-bs-toggle="modal"
+				   data-bs-target="#sizeChartModal">
+					Таблиця розмірів
+				</a>
+			</div>
 		</div>
+
+		<!-- Modal for Size Chart -->
+		<div class="modal fade" id="sizeChartModal" tabindex="-1" aria-labelledby="sizeChartModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-lg"> <!-- modal-lg for larger modal size -->
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="sizeChartModalLabel">Таблиця розмірів</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрити"></button>
+					</div>
+					<div class="modal-body text-center">
+						<img src="{% static 'images/size.png' %}" alt="Таблиця розмірів" class="img-fluid">
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<hr>
 		{% if single_product.stock <= 0 %}
 		<h5 class="text-danger">Немає в наявності</h5>
@@ -79,7 +105,7 @@
 				<span class="text">Купити</span>
 				<i class="fas fa-shopping-cart"></i>
 			</button>
-			<button type="submit" name="add_to_cart" class="btn btn-secondary custom-outline-button">
+			<button type="submit" name="add_to_cart" class="btn btn-secondary custom-outline-button" style="margin-left: 15px;">
 				<span class="text">В корзину</span>
 				<i class="fas fa-plus"></i>
 			</button>

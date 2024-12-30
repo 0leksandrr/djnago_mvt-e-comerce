@@ -41,37 +41,50 @@ def store(request, category_slug=None):
     max_price_placeholder = Product.objects.aggregate(Max('price'))['price__max']
     min_price_placeholder = Product.objects.aggregate(Min('price'))['price__min']
 
+    def get_all_subcategories(category):
+        """Recursively get all subcategories of a category."""
+        subcategories = category.subcategories.all()
+        all_subcategories = list(subcategories)
+        for subcategory in subcategories:
+            all_subcategories.extend(get_all_subcategories(subcategory))
+        return all_subcategories
+
     if category_slug is not None:
+        # Get the parent category and all its descendants
         categories = get_object_or_404(Category, slug=category_slug)
+        all_categories = [categories] + get_all_subcategories(categories)
+
+        # Filter products by category or subcategories
         if 'min_price' in request.GET:
-            min_price = request.GET.get('min_price')
-            max_price = request.GET.get('max_price')
-            if min_price == '':
-                min_price = 0
-            if max_price == '':
-                max_price = Product.objects.aggregate(Max('price'))['price__max']
-            products = Product.objects.filter(price__range=(min_price, max_price), category=categories, is_available=True).order_by('id')
-            paged_products = paginator(request, products, 9)
-            product_count = products.count()
+            min_price = request.GET.get('min_price') or 0
+            max_price = request.GET.get('max_price') or max_price_placeholder
+            products = Product.objects.filter(
+                price__range=(min_price, max_price),
+                category__in=all_categories,
+                is_available=True
+            ).order_by('id')
         else:
-            products = Product.objects.filter(category=categories, is_available=True).order_by('id')
-            paged_products = paginator(request, products, 9)
-            product_count = products.count()
+            products = Product.objects.filter(
+                category__in=all_categories,
+                is_available=True
+            ).order_by('id')
+
+        paged_products = paginator(request, products, 9)
+        product_count = products.count()
     else:
+        # Handle the case where no category is provided
         if 'min_price' in request.GET:
-            min_price = request.GET.get('min_price')
-            max_price = request.GET.get('max_price')
-            if min_price == '':
-                min_price = 0
-            if max_price == '':
-                max_price = Product.objects.aggregate(Max('price'))['price__max']
-            products = Product.objects.all().filter(is_available=True, price__range=(min_price, max_price)).order_by('id')
-            paged_products = paginator(request, products, 9)
-            product_count = products.count()
+            min_price = request.GET.get('min_price') or 0
+            max_price = request.GET.get('max_price') or max_price_placeholder
+            products = Product.objects.filter(
+                is_available=True,
+                price__range=(min_price, max_price)
+            ).order_by('id')
         else:
-            products = Product.objects.all().filter(is_available=True).order_by('id')
-            paged_products = paginator(request, products, 9)
-            product_count = products.count()
+            products = Product.objects.filter(is_available=True).order_by('id')
+
+        paged_products = paginator(request, products, 9)
+        product_count = products.count()
 
     context = {
         'products': paged_products,
