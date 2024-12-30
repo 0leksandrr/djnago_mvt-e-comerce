@@ -28,9 +28,6 @@
                                     <li>
                                         <a href="{{ category.get_url }}">
                                             {{ category.category_name }}
-                                            <span class="badge badge-pill badge-light float-right">
-                                                {{ count_products_by_category|get_index:forloop.counter0 }}
-                                            </span>
                                         </a>
                                         {% if category.subcategories.exists %}
                                         <ul>
