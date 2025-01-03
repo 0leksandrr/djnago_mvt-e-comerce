@@ -45,10 +45,12 @@ def send_order_to_telegram(request):
         # Loop through the cart items to get the products and quantities
         for item in cart_items:
             product_name = item.product.product_name
+            model = item.product.model
             quantity = item.quantity
             variations = ', '.join(
                 [variation.variation_value for variation in item.variations.all()])  # Add variations if available
-            products_info += f"Product: {product_name}, Quantity: {quantity}, Variations: {variations}\n"
+            products_info += f"Product: {product_name}, Model: {model}, Quantity: {quantity}, Variations: {variations}\n"
+
 
         # Create the message text
         message = f"""
