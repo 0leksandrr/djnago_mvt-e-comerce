@@ -12,6 +12,7 @@ class Product(models.Model):
     description = models.TextField(blank=True, verbose_name='Опис')
     price = models.IntegerField(verbose_name='Ціна')
     model = models.CharField(max_length=255, verbose_name='Модель')
+    sizes = models.JSONField(blank=True, default=list, verbose_name='Розмірии')
     fabric_type = models.CharField(max_length=255, blank=True, verbose_name='Вид тканини')
     fabric_composition = models.CharField(max_length=255, blank=True, verbose_name='Склад тканини')
     color = models.CharField(max_length=255, blank=True, verbose_name='Колір')

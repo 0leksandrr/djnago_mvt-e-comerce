@@ -64,11 +64,12 @@
 				<h6>Виберіть розмір</h6>
 				<select name="size" class="form-control" required>
 					<option value="" disabled selected>вибір</option>
-					{% for i in single_product.variation_set.sizes %}
-						<option value="{{ i.variation_value | lower }}">{{ i.variation_value | capfirst }}</option>
+					{% for size in single_product.sizes %}
+						<option value="{{ size | lower }}">{{ size | capfirst }}</option>
 					{% endfor %}
 				</select>
 			</div>
+
 
 			<!-- Button to trigger modal with size chart image -->
 			<div style="margin-top: 25px; margin-left: 5px;">
