@@ -21,6 +21,7 @@ class Product(models.Model):
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата створення')
     modified_date = models.DateTimeField(auto_now=True, verbose_name='Дата змін')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='Категорія')
+    additional_images = models.JSONField(blank=True, default=list, verbose_name='Додаткові зображення')
 
     def get_url(self):
         """
@@ -65,10 +66,10 @@ variation_category_choice = (
 )
 
 
-
 class Variation(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='Товар')
-    variation_category = models.CharField(max_length=100, choices=variation_category_choice, verbose_name='Категорія варіації')
+    variation_category = models.CharField(max_length=100, choices=variation_category_choice,
+                                          verbose_name='Категорія варіації')
     variation_value = models.CharField(max_length=100, verbose_name='Значення варіації')
     is_active = models.BooleanField(default=True, verbose_name='Активно')
     created_date = models.DateTimeField(auto_now=True, verbose_name='Дата створення')
@@ -81,7 +82,6 @@ class Variation(models.Model):
     class Meta:
         verbose_name = 'Варіацію'
         verbose_name_plural = 'Варіації'
-
 
 
 class ReviewRating(models.Model):
@@ -117,4 +117,3 @@ class ProductGallery(models.Model):
     class Meta:
         verbose_name = 'товар'
         verbose_name_plural = 'Галерея товарів'
-
