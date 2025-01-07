@@ -69,7 +69,7 @@ def store(request, category_slug=None):
                 is_available=True
             ).order_by('id')
 
-        paged_products = paginator(request, products, 12)
+        paged_products = paginator(request, products, 24)
         product_count = products.count()
     else:
         # Handle the case where no category is provided
@@ -83,7 +83,7 @@ def store(request, category_slug=None):
         else:
             products = Product.objects.filter(is_available=True).order_by('id')
 
-        paged_products = paginator(request, products, 9)
+        paged_products = paginator(request, products, 24)
         product_count = products.count()
 
     context = {
