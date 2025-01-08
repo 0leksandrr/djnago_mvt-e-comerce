@@ -6,14 +6,6 @@
 <section class="section-intro padding-y-sm">
     <div class="container">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="4000">
-            <!-- Optional: If you want indicators -->
-            <!--
-            <ol class="carousel-indicators">
-                {% for slide in slider_list %}
-                <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}" class="{{ slide.slider_css }}"></li>
-                {% endfor %}
-            </ol>
-            -->
             <div class="carousel-inner img-fluid rounded">
                 {% for slide in slider_list %}
                 <div class="carousel-item {{ forloop.first|yesno:"active," }}">
@@ -33,17 +25,13 @@
     </div>
 </section>
 
-
 <section class="section-name padding-y-sm">
     <div class="container">
-
         <header class="section-heading">
             <a href="https://atikin.if.ua/store/category/dlya-zhinok/" class="btn btn-outline-secondary custom-outline-button">Жінки</a>
             <a href="https://atikin.if.ua/store/category/dlya-cholovikiv/" class="btn btn-outline-secondary custom-outline-button">Чоловіки</a>
             <a href="https://atikin.if.ua/store/category/dlya-pidlitkiv-ta-ditej/" class="btn btn-outline-secondary custom-outline-button">Діти</a>
         </header>
-
-
         <div class="row">
             {% for product in most_popular_products %}
             <div class="col-6 col-sm-4 col-md-3">
@@ -70,10 +58,30 @@
                 </div>
             </div>
             {% endfor %}
-
         </div>
-
     </div>
 </section>
+
+<!-- Load jQuery and Hammer.js -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+
+<script>
+    // Ensure the carousel has been initialized
+    $(document).ready(function() {
+        var carouselElement = document.querySelector('#carouselExampleIndicators');
+        var hammer = new Hammer(carouselElement);
+
+        // Swipe left to go to next slide
+        hammer.on('swipeleft', function() {
+            $('#carouselExampleIndicators').carousel('next');
+        });
+
+        // Swipe right to go to previous slide
+        hammer.on('swiperight', function() {
+            $('#carouselExampleIndicators').carousel('prev');
+        });
+    });
+</script>
 
 {% endblock %}

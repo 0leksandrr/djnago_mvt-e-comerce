@@ -161,7 +161,7 @@
     align-items: center;
     padding: 7px 13px; /* Внутрішній відступ */
     border-radius: 5px; /* Згладження кутів */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Легке тінювання */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Легке тінювання */
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Анімація при наведенні */
     cursor: pointer; /* Вказівник змінюється при наведенні */
 }

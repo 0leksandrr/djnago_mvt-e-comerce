@@ -89,13 +89,24 @@ ul.thumb li img {
   100% { transform: rotate(360deg); }
 }
 
-
-@media (max-width: 767px) {
+@media (min-width: 768px) {
     .main-text {
-    font-size: 1.2rem;
+        font-size: 3rem; /* помітно менше значення */
     }
 
-    .main-description{
+    .main-description {
         font-size: 1rem;
     }
 }
+
+@media (max-width: 767px) {
+    .main-text {
+        font-size: 1.2rem;
+    }
+
+    .main-description {
+        font-size: 1rem;
+    }
+}
+
+
