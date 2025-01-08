@@ -4,41 +4,36 @@
 
 {% block content %}
 
-
-
 <section class="section-content padding-y">
     <div class="container">
 
-        <div class="row">
-            <aside class="col-md-3">
-
+        <div class="row custom-row"> <!-- Custom row class -->
+            <!-- Sidebar for categories and price filter -->
+            <aside class="col-lg-3 col-12">
                 <div class="card">
                     <article class="filter-group">
                         <header class="card-header">
-                            <a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="">
+                            <a href="#" data-toggle="collapse" data-target="#collapse_1" aria-expanded="true" class="d-flex align-items-center">
                                 <i class="icon-control fa fa-chevron-down" style="color: #982222;"></i>
-                                <h6 class="title" style="color: #982222;">Категорії</h6>
+                                <h6 class="title ml-2" style="color: #982222; font-weight: bold;">Категорії</h6>
                             </a>
                         </header>
-                        <div class="filter-content collapse show" id="collapse_1" style="">
+                        <div class="filter-content collapse show" id="collapse_1">
                             <div class="card-body">
-
                                 <ul class="list-menu">
                                     {% for category in links %}
-                                    <li>
-                                        <a href="{{ category.get_url }}">
-                                            {{ category.category_name }}
-                                        </a>
+                                    <li class="category-item">
+                                        <a href="{{ category.get_url }}" class="category-link">{{ category.category_name }}</a>
                                         {% if category.subcategories.exists %}
-                                        <ul>
+                                        <ul class="subcategory-list">
                                             {% for subcategory in category.subcategories.all %}
-                                            <li>
-                                                <a href="{{ subcategory.get_url }}">{{ subcategory.category_name }}</a>
+                                            <li class="subcategory-item">
+                                                <a href="{{ subcategory.get_url }}" class="subcategory-link">{{ subcategory.category_name }}</a>
                                                 {% if subcategory.subcategories.exists %}
-                                                <ul>
+                                                <ul class="subsubcategory-list">
                                                     {% for sub_subcategory in subcategory.subcategories.all %}
-                                                    <li>
-                                                        <a href="{{ sub_subcategory.get_url }}">{{ sub_subcategory.category_name }}</a>
+                                                    <li class="subsubcategory-item">
+                                                        <a href="{{ sub_subcategory.get_url }}" class="subsubcategory-link">{{ sub_subcategory.category_name }}</a>
                                                     </li>
                                                     {% endfor %}
                                                 </ul>
@@ -50,10 +45,6 @@
                                     </li>
                                     {% endfor %}
                                 </ul>
-
-
-
-
                             </div>
                         </div>
                     </article>
@@ -63,40 +54,34 @@
                             <a href="#" data-toggle="collapse" data-target="#collapse_3" aria-expanded="true" class="">
                                 <i class="icon-control fa fa-chevron-down" style="color: #982222;"></i>
                                 <h6 class="title" style="color: #982222;">Діапазон цін</h6>
-
                             </a>
                         </header>
                         <form action="{% url 'store' %}" method="GET">
-                            <div class="filter-content collapse show" id="collapse_3" style="">
+                            <div class="filter-content collapse show" id="collapse_3">
                                 <div class="card-body">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label>Мін.</label>
-                                            <input class="form-control" placeholder="від {{min_price_placeholder}}"
-                                                   type="number" name="min_price">
+                                            <input class="form-control" placeholder="від {{min_price_placeholder}}" type="number" name="min_price">
                                         </div>
                                         <div class="form-group text-right col-md-6">
                                             <label>Макс.</label>
-                                            <input class="form-control" placeholder="до {{max_price_placeholder}}"
-                                                   type="number" name="max_price">
+                                            <input class="form-control" placeholder="до {{max_price_placeholder}}" type="number" name="max_price">
                                         </div>
                                     </div>
                                     <button type="submit" class="btn btn-block btn-primary" style="background-color: #982222; border-color: #982222;">Застосувати</button>
                                 </div>
-
                             </div>
                         </form>
                     </article>
-
                 </div>
-
             </aside>
-            <main class="col-md-9">
 
+            <!-- Products Display -->
+            <main class="col-lg-9 col-12">
                 <header class="border-bottom mb-4 pb-3">
                     <div class="form-inline">
                         <span class="mr-md-auto"><b>{{ product_count }}</b> товарів знайдено</span>
-
                     </div>
                 </header>
 
@@ -104,19 +89,19 @@
                     {% if products %}
                     {% for product in products %}
                     <div class="col-6 col-sm-4 col-md-3 col-lg-3">
-                            <div class="custom-img-wrap">
-                                <a href="{{ product.get_url }}">
-                                    <img src="{{ product.product_image.url }}" class="custom-img" alt="{{ product.product_name }}">
-                                </a>
-                            </div>
-                            <figcaption class="custom-info-wrap">
-                                <div class="custom-fix-height">
-                                    <a href="{{ product.get_url }}" class="custom-title">{{ product.product_name }}</a>
-                                    <div class="custom-price-wrap">
-                                        <span class="custom-price">{{ product.price }} ₴</span>
-                                    </div>
+                        <div class="custom-img-wrap">
+                            <a href="{{ product.get_url }}">
+                                <img src="{{ product.product_image.url }}" class="custom-img" alt="{{ product.product_name }}">
+                            </a>
+                        </div>
+                        <figcaption class="custom-info-wrap">
+                            <div class="custom-fix-height">
+                                <a href="{{ product.get_url }}" class="custom-title">{{ product.product_name }}</a>
+                                <div class="custom-price-wrap">
+                                    <span class="custom-price">{{ product.price }} ₴</span>
                                 </div>
-                            </figcaption>
+                            </div>
+                        </figcaption>
                     </div>
                     {% endfor %}
                     {% else %}
@@ -127,13 +112,12 @@
                     {% endif %}
                 </div>
 
+                <!-- Pagination -->
                 <nav class="mt-4" aria-label="Page navigation sample">
                     {% if products.has_other_pages %}
                     <ul class="pagination">
                         {% if products.has_previous %}
-                        <li class="page-item"><a class="page-link"
-                                                 href="?{% if keyword %}keyword={{keyword}}&{% endif %}page={{products.previous_page_number}}">Попередня</a>
-                        </li>
+                        <li class="page-item"><a class="page-link" href="?{% if keyword %}keyword={{keyword}}&{% endif %}page={{products.previous_page_number}}">Попередня</a></li>
                         {% else %}
                         <li class="page-item disabled"><a class="page-link" href="#">Попередня</a></li>
                         {% endif %}
@@ -142,29 +126,144 @@
                         {% if products.number == i %}
                         <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
                         {% else %}
-                        <li class="page-item"><a class="page-link"
-                                                 href="?{% if keyword %}keyword={{keyword}}&{% endif %}page={{i}}">{{i}}</a>
-                        </li>
+                        <li class="page-item"><a class="page-link" href="?{% if keyword %}keyword={{keyword}}&{% endif %}page={{i}}">{{i}}</a></li>
                         {% endif %}
                         {% endfor %}
 
                         {% if products.has_next %}
-                        <li class="page-item"><a class="page-link"
-                                                 href="?{% if keyword %}keyword={{keyword}}&{% endif %}page={{products.next_page_number}}">Наступна</a>
-                        </li>
+                        <li class="page-item"><a class="page-link" href="?{% if keyword %}keyword={{keyword}}&{% endif %}page={{products.next_page_number}}">Наступна</a></li>
                         {% else %}
                         <li class="page-item disabled"><a class="page-link" href="#">Наступна</a></li>
                         {% endif %}
                     </ul>
                     {% endif %}
                 </nav>
-
             </main>
-
         </div>
 
     </div>
 </section>
 
-
 {% endblock %}
+
+<style>
+    /* Основний стиль для фільтра */
+.filter-group {
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+/* Стиль заголовка фільтра */
+.card-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 15px;
+}
+
+.card-header a {
+    text-decoration: none;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.card-header .title {
+    font-size: 18px;
+    margin: 0;
+}
+
+.card-header .icon-control {
+    font-size: 18px;
+}
+
+/* Стиль для списку категорій */
+.list-menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.category-item {
+    margin-bottom: 10px;
+}
+
+.category-link {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.category-link:hover {
+    background-color: #982222;
+    color: white;
+}
+
+/* Стиль для підкатегорій */
+.subcategory-list {
+    margin-left: 20px;
+    padding-left: 10px;
+    border-left: 2px solid #ddd;
+    list-style-type: none;
+    max-height: 0; /* Початковий стан: приховано */
+    overflow: hidden; /* Перекриває елементи, які виходять за межі */
+    transition: max-height 0.5s ease-out; /* Плавний перехід висоти */
+}
+
+.subcategory-item {
+    margin-bottom: 8px;
+}
+
+.subcategory-link {
+    color: #555;
+    font-size: 15px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.subcategory-link:hover {
+    color: #982222;
+}
+
+/* Стиль для під-підкатегорій */
+.subsubcategory-list {
+    margin-left: 20px;
+    padding-left: 10px;
+    border-left: 2px solid #ddd;
+    list-style-type: none;
+    max-height: 0; /* Початковий стан: приховано */
+    overflow: hidden; /* Перекриває елементи, які виходять за межі */
+    transition: max-height 0.5s ease-out; /* Плавний перехід висоти */
+}
+
+.subsubcategory-item {
+    margin-bottom: 6px;
+}
+
+.subsubcategory-link {
+    color: #777;
+    font-size: 14px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.subsubcategory-link:hover {
+    color: #982222;
+}
+
+/* Коли навели на елемент категорії, підкатегорії відкриваються */
+.category-item:hover .subcategory-list {
+    max-height: 1000px; /* Встановлюємо великий max-height, щоб підкатегорії показувалися */
+}
+
+.subcategory-item:hover .subsubcategory-list {
+    max-height: 1000px; /* Встановлюємо великий max-height для показу під-підкатегорій */
+}
+</style>

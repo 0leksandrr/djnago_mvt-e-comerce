@@ -64,6 +64,13 @@ ul.thumb li img {
     border: 1px solid grey;
 }
 
+.custom-center {
+    display: flex;
+    justify-content: center;  /* Вирівнює по горизонталі */
+    align-items: center;      /* Вирівнює по вертикалі */
+    height: 100%;             /* Забезпечує висоту для вертикального вирівнювання */
+}
+
 
 /* Preloader for visualise payment waiting */
 .loader {
@@ -80,4 +87,15 @@ ul.thumb li img {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+
+@media (max-width: 767px) {
+    .main-text {
+    font-size: 1.2rem;
+    }
+
+    .main-description{
+        font-size: 1rem;
+    }
 }

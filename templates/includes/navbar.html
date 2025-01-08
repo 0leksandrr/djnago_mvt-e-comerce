@@ -1,69 +1,171 @@
 {% load static %}
 
 <header class="section-header">
-    <nav class="navbar p-md-0 navbar-expand-sm navbar-light border-bottom">
-        <div class="container">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTop4"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-        </div>
-    </nav>
-
     <section class="header-main border-bottom">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-2 col-md-3 col-6">
-                    <a href="{% url 'home' %}" class="brand-wrap">
-                        <img src="{% static 'images/photo_main.png' %}" alt="ATIKIN IF Logo" style="width: 50px; height: 50px; border-radius: 50%; margin-right: 10px; margin-bottom: 8px;">
-                    </a>
-                    <!-- Текст -->
-                    <a href="{% url 'home' %}" class="brand-wrap" style="text-decoration: none;">
-                        <span style="font-size: 20px; font-weight: bold; color: #0a0c0d;">ATIKIN IF</span>
-                    </a>
+            <div>
+                <div class="working-hours text-right ml-auto">
+                    <span class="small-text">Режим роботи: пн-пт, з 9:00 до 18:00 (субота-неділя вихідний)</span>
                 </div>
 
-                <div class="col-lg col-sm col-md col-6 d-flex justify-content-end">
-                    <div class="category-wrap dropdown d-inline-block">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" style="background-color: #982222; border-color: #982222;">
-                            <i class="fa fa-bars"></i> Всі товари
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="{% url 'store' %}">Всі товари</a>
-                            {% for category in links %}
-                                <a class="dropdown-item" href="{{ category.get_url }}">{{ category.category_name }}</a>
-                            {% endfor %}
-                        </div>
+                <div class="col-12 d-flex justify-content-center align-items-center">
+                    <div class="brand-container d-flex justify-content-center align-items-center">
+                        <a href="{% url 'home' %}" class="brand-wrap">
+                            <img src="{% static 'images/photo_main.png' %}" alt="ATIKIN IF Logo" class="rounded-circle logo-img">
+                        </a>
+                        <a href="{% url 'home' %}" class="brand-wrap">
+                            <span class="logo-text">ATIKIN IF</span>
+                        </a>
                     </div>
                 </div>
 
-                <div class="col-lg-5 col-md-6 col-12 d-flex justify-content-center">
-                    <form action="{% url 'search' %}" class="search w-100" method="GET">
+                <div class="col-12 text-right icon-container d-flex justify-content-end align-items-center  my_class">
+                    <form action="{% url 'search' %}" class="search w-25 w-100-sm" method="GET">
                         <div class="input-group w-100">
                             <input type="text" class="form-control" placeholder="Пошук" name="keyword">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit" style="background-color: #982222; border-color: #982222; color: #fff;">
+                                <button class="btn btn-primary" type="submit" style="background-color: #ffffff; border-color: #575252; color: #000000;">
                                     <i class="fa fa-search"></i>
                                 </button>
                             </div>
                         </div>
                     </form>
-                </div>
 
-                <div class="col-lg-3 col-sm-6 col-6 d-flex justify-content-end">
-                    <a href="{% url 'cart' %}" class="widget-header pl-3 ml-3">
-                        <div class="custom-icon-container">
-                            <div class="custom-icon">
-                                <i class="fa fa-shopping-cart"></i>
-                            </div>
-                            <span class="cart-text ml-2">Кошик</span>
-                        </div>
-                        <span class="badge badge-pill badge-danger notify">{{ cart_count }}</span>
+                    <a href="{% url 'cart' %}" class="icon-link mr-3">
+                        <i class="fa fa-shopping-cart"></i>
+                        <span class="badge badge-pill badge-danger">{{ cart_count }}</span>
                     </a>
                 </div>
             </div>
         </div>
     </section>
-
-
 </header>
+
+<style>
+    /* For mobile screens (less than 767px), make the search field full width */
+@media (max-width: 991px) {
+    .search {
+        width: 90% !important; /* Ensures full width on mobile */
+    }
+}
+
+@media (min-width: 992px) {
+    .search {
+        width: 300px !important; /* Ensures full width on mobile */
+    }
+}
+
+/* Header Styling */
+.section-header {
+    font-family: 'Arial', sans-serif;
+}
+
+/* Centralized brand with logo and name */
+.brand-wrap {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.nav-link {
+    font-size: 14px;
+    color: black;
+    margin: 0 10px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    color: #982222;
+}
+
+.icon-link {
+    margin-left: 15px;
+    color: black;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.icon-link:hover {
+    color: #982222;
+}
+
+.badge {
+    position: static;
+    top: -10px;
+    left: -5px;
+}
+
+.brand-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Styling for the logo */
+.logo-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+/* Styling for the logo text */
+.logo-text {
+    font-size: 26px;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+}
+
+/* Categories Block */
+.nav {
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.nav-link {
+    padding: 10px 20px;
+}
+
+/* Пошукове поле */
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+}
+
+.search-input {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+    width: 150px;
+}
+
+.btn-search {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.icon-link {
+    margin-left: 15px;
+    color: black;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.icon-link:hover {
+    color: #982222;
+}
+
+/* Adjusting spacing and layout */
+@media (max-width: 767px) {
+    .nav-link {
+        font-size: 12px;
+        padding: 5px 10px;
+    }
+}
+</style>
