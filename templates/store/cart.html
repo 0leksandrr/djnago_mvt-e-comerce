@@ -10,7 +10,7 @@
         <div class="text-center">
             <h2>Ваш кошик порожній</h2>
             <br>
-            <a href="{% url 'store' %}" class="btn btn-primary">Продовжити покупки</a>
+            <a href="{% url 'store' %}" class="btn btn-primary custom-btn-apply">Продовжити покупки</a>
         </div>
         {% else %}
         <div class="row">
@@ -102,7 +102,7 @@
                             <dd class="text-right text-dark b"><strong>{{ grand_total }} ₴</strong></dd>
                         </dl>
                         <hr>
-                        <a href="{% url 'checkout' %}" class="btn custom-btn-primary btn-block"> Оформити замовлення </a>
+                        <a href="{% url 'checkout' %}" class="btn custom-btn-primary btn-block custom-btn-apply"> Оформити замовлення </a>
                         <a href="{% url 'store' %}" class="btn btn-light btn-block">Продовжити покупки</a>
                     </div>
                 </div>

@@ -210,8 +210,10 @@
 
 .list-menu > li > a {
     text-decoration: none;
-    color: #982222;
+    color: #0a0c0d !important;
+    font-family: 'FixelText', sans-serif;
     display: block;
+    font-size: 15px;
     padding: 5px 10px;
 }
 

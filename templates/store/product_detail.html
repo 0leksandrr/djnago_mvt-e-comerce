@@ -107,14 +107,15 @@
 		<h5 class="text-danger">Немає в наявності</h5>
 		{% else %}
 		<div class="d-flex">
-			<button type="submit" name="buy_now" class="btn btn-primary custom-outline-button mr-2">
+			<button type="submit" name="buy_now" class="btn custom-btn mr-2">
 				<span class="text">Купити</span>
 				<i class="fas fa-shopping-cart"></i>
 			</button>
-			<button type="submit" name="add_to_cart" class="btn btn-secondary custom-outline-button" style="margin-left: 15px;">
+			<button type="submit" name="add_to_cart" class="btn custom-btn-add-to-cart" style="margin-left: 15px;">
 				<span class="text">В корзину</span>
 				<i class="fas fa-plus"></i>
 			</button>
+
 		</div>
 
 		{% endif %}

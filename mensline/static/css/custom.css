@@ -97,6 +97,42 @@ ul.thumb li img {
     transition: all 0.3s ease; /* Smooth transition for hover effects */
 }
 
+.custom-btn {
+    color: #FFFFFF;
+    background-color: #414141;
+    border: 1px solid #414141;
+    font-family: 'FixelText', sans-serif;
+}
+
+.custom-btn:hover {
+    background-color: #333333; /* Optional: changes background color on hover */
+    border-color: #333333;
+}
+
+.custom-btn-add-to-cart {
+    color: #FFFFFF;
+    background-color: #414141;
+    border: 1px solid #414141;
+    font-family: 'FixelText', sans-serif;
+}
+
+.custom-btn-add-to-cart:hover {
+    background-color: #333333; /* Optional: changes background color on hover */
+    border-color: #333333;
+}
+
+.custom-btn-apply {
+    color: #FFFFFF;
+    background-color: #414141;
+    border: 1px solid #414141;
+    font-family: 'FixelText', sans-serif;
+}
+
+.custom-btn-apply:hover {
+    background-color: #333333; /* Optional: changes background color on hover */
+    border-color: #333333;
+}
+
 /* Hover effect for links */
 .nav-link:hover {
     background-color: #007bff; /* Blue background on hover */
