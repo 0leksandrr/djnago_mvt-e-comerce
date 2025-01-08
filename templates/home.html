@@ -27,11 +27,16 @@
 
 <section class="section-name padding-y-sm">
     <div class="container">
-        <header class="section-heading">
-            <a href="https://atikin.if.ua/store/category/dlya-zhinok/" class="btn btn-outline-secondary custom-outline-button">Жінки</a>
-            <a href="https://atikin.if.ua/store/category/dlya-cholovikiv/" class="btn btn-outline-secondary custom-outline-button">Чоловіки</a>
-            <a href="https://atikin.if.ua/store/category/dlya-pidlitkiv-ta-ditej/" class="btn btn-outline-secondary custom-outline-button">Діти</a>
+        <header class="section-heading d-flex justify-content-center border-bottom pb-2">
+            <nav class="nav justify-content-center">
+                <a class="nav-link text-dark px-4 py-2" href="https://atikin.if.ua/store/category/dlya-zhinok/">ЖІНКИ</a>
+                <a class="nav-link text-dark px-4 py-2" href="https://atikin.if.ua/store/category/dlya-cholovikiv/">ЧОЛОВІКИ</a>
+                <a class="nav-link text-dark px-4 py-2" href="https://atikin.if.ua/store/category/dlya-pidlitkiv-ta-ditej/">ДІТИ</a>
+            </nav>
         </header>
+
+
+
         <div class="row">
             {% for product in most_popular_products %}
             <div class="col-6 col-sm-4 col-md-3">
@@ -85,3 +90,43 @@
 </script>
 
 {% endblock %}
+
+<style>
+    .section-heading {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    border-bottom: 1px solid #ccc; /* Тонка лінія під меню */
+    padding-bottom: 10px;
+}
+
+.menu-link {
+    text-decoration: none;
+    color: black;
+    position: relative;
+    padding: 0 5px;
+}
+
+.menu-link:hover {
+    color: #007bff; /* Колір під час наведення */
+}
+
+.menu-link::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: black;
+    transition: width 0.3s;
+    margin-top: 2px;
+}
+
+.menu-link:hover::after {
+    width: 100%;
+}
+
+</style>
