@@ -12,18 +12,27 @@ from .models import Product, ReviewRating, ProductGallery
 
 
 
-def paginator(request, product_list, products_per_page):
+def paginator(request, queryset, per_page):
     """
-    Paginate pages in the store
-    :param request:
-    :param product_list: List of all products in the store or in the category
-    :param products_per_page: How many products per page show
-    :return: Number of products displayed
+    Paginate a queryset.
+    :param request: HTTP request
+    :param queryset: Queryset to paginate
+    :param per_page: Number of items per page
+    :return: Paged queryset and page range
     """
-    product_paginator = Paginator(product_list, products_per_page)
-    page = request.GET.get('page')
-    paged_products = product_paginator.get_page(page)
-    return paged_products
+    paginator = Paginator(queryset, per_page)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    # Обчислення діапазону сторінок для відображення
+    current_page = page_obj.number
+    total_pages = paginator.num_pages
+    page_range = [
+        i for i in range(1, total_pages + 1)
+        if i == 1 or i == total_pages or (current_page - 3 <= i <= current_page + 3)
+    ]
+
+    return page_obj, page_range
 
 
 def store(request, category_slug=None):
@@ -50,11 +59,9 @@ def store(request, category_slug=None):
         return all_subcategories
 
     if category_slug is not None:
-        # Get the parent category and all its descendants
         categories = get_object_or_404(Category, slug=category_slug)
         all_categories = [categories] + get_all_subcategories(categories)
 
-        # Filter products by category or subcategories
         if 'min_price' in request.GET:
             min_price = request.GET.get('min_price') or 0
             max_price = request.GET.get('max_price') or max_price_placeholder
@@ -68,11 +75,7 @@ def store(request, category_slug=None):
                 category__in=all_categories,
                 is_available=True
             ).order_by('id')
-
-        paged_products = paginator(request, products, 24)
-        product_count = products.count()
     else:
-        # Handle the case where no category is provided
         if 'min_price' in request.GET:
             min_price = request.GET.get('min_price') or 0
             max_price = request.GET.get('max_price') or max_price_placeholder
@@ -83,17 +86,19 @@ def store(request, category_slug=None):
         else:
             products = Product.objects.filter(is_available=True).order_by('id')
 
-        paged_products = paginator(request, products, 24)
-        product_count = products.count()
+    paged_products, page_range = paginator(request, products, 24)
+    product_count = products.count()
 
     context = {
         'products': paged_products,
         'product_count': product_count,
         'all_products_count': all_products_count,
         'max_price_placeholder': max_price_placeholder,
-        'min_price_placeholder': min_price_placeholder
+        'min_price_placeholder': min_price_placeholder,
+        'page_range': page_range
     }
     return render(request, 'store/store.html', context)
+
 
 
 def product_detail(request, category_slug, product_slug):
