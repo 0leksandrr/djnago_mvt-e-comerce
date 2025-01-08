@@ -161,7 +161,7 @@ ul.thumb li img {
 
 @media (min-width: 768px) {
     .main-text {
-        font-size: 3rem; /* помітно менше значення */
+        font-size: 1.3rem; /* помітно менше значення */
     }
 
     .main-description {
